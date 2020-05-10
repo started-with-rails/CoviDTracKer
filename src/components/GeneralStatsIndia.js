@@ -1,7 +1,7 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import covid19india from '../apis/covid19india';
+import covid19indiadays from '../apis/covid19indiadays';
 
 
 class GeneralStatsIndia extends React.Component {
@@ -10,19 +10,13 @@ class GeneralStatsIndia extends React.Component {
         data: [],
     };
     async componentDidMount() {
-        const response = await covid19india.get('states');
-        const states = response.data.state;
-        var total = 0;
-        var confirmed = 0;
-        var cured = 0;
-        var death = 0;
+        const response = await covid19indiadays.get('data.json');
+        const states = response.data.statewise[0];
+        var total = states['confirmed'];
+        var confirmed = states['active'];
+        var cured = states['recovered'];
+        var death = states['deaths'];
 
-        Object.keys(states).map(function(keyName, keyIndex) {
-          total = total+ parseInt(states[keyName]['total'])
-          confirmed = confirmed + parseInt(states[keyName]['confirmed'])
-          cured = cured + parseInt(states[keyName]['cured'])
-          death = death + parseInt(states[keyName]['death'])
-        })
         this.setState({
             mapOptions: { 
                 colors: ['#2f7ed8', '#ff3300', '#8bbc21'],

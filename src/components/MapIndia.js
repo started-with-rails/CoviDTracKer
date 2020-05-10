@@ -2,7 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import IndiaMap from '../maps/IndiaMap';
-import covid19india from '../apis/covid19india';
+import covid19indiadays from '../apis/covid19indiadays';
 
 // Load Highcharts modules
 require('highcharts/modules/map')(Highcharts);
@@ -13,11 +13,11 @@ class MapIndia extends React.Component {
         mapOptions: {}
     }
     async componentDidMount() {
-        const response = await covid19india.get('/states');
-        const states = response.data.state;
+        const response = await covid19indiadays.get('data.json');
+        const states = response.data.statewise;
         var data = [];
         Object.keys(states).map(function(keyName, keyIndex) {
-          data.push({key: states[keyName]['name'].toLowerCase(), value: states[keyName]['confirmed']})
+          data.push({key: states[keyName]['state'].toLowerCase(), value: states[keyName]['confirmed']})
         })
         const mapOptions = {
             title: {

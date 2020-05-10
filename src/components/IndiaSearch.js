@@ -1,7 +1,7 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import covid19india from '../apis/covid19india';
+import covid19indiadays from '../apis/covid19indiadays';
 
 
 class IndiaSearch extends React.Component {
@@ -9,21 +9,20 @@ class IndiaSearch extends React.Component {
         mapOptions: {},
     };
     async componentDidMount() {
-        const response = await covid19india.get('states');
-        const states = response.data.state;
-        const statesSorted = states.sort(function(a, b) { return a.total - b.total; }).reverse();
+        const response = await covid19indiadays.get('data.json');
+        const states = response.data.statewise;
         var categories= []
         var total_cases= []
         var total_deaths= []
         var total_recovered= []
         var active_cases = []
-        Object.keys(statesSorted).map(function(keyName, keyIndex) {
-            if(keyName <  6) {
-                categories.push(statesSorted[keyName]['name'])
-                total_cases.push(parseFloat((statesSorted[keyName]['total'])))
-                total_deaths.push(parseFloat((statesSorted[keyName]['death'])))
-                total_recovered.push(parseFloat((statesSorted[keyName]['cured'])))
-                active_cases.push(parseFloat((statesSorted[keyName]['confirmed'])))
+        Object.keys(states).map(function(keyName, keyIndex) {
+            if(keyName > 0 && keyName <  6) {
+                categories.push(states[keyName]['state'])
+                total_cases.push(parseFloat((states[keyName]['confirmed'])))
+                total_deaths.push(parseFloat((states[keyName]['deaths'])))
+                total_recovered.push(parseFloat((states[keyName]['recovered'])))
+                active_cases.push(parseFloat((states[keyName]['active'])))
             }
         })
         this.setState({

@@ -14256,7 +14256,7 @@ const IndiaMap = {
         "id": "Telangana",
         "properties": {
           "hc-group": "admin1",
-          "hc-key": "telengana",
+          "hc-key": "telangana",
           "hc-a2": "TE",
           "name": "Telangana",
           "hc-middle-x": 0.5,
