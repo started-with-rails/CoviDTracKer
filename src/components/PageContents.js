@@ -1,6 +1,14 @@
 import React from 'react'
 import Footer from './Footer'
 import Menu from './Menu'
+import WorldMap from  './WorldMap';
+import MapIndia from  './MapIndia';
+import GeneralStats from './GeneralStatsWorld';
+import CountriesSearch from './CountriesSearch';
+import GeneralStatsIndia from './GeneralStatsIndia';
+import IndiaSearch from './IndiaSearch';
+import CasesTimeSeries from './CasesTimeSeries';
+import StateDistrictWise from './StateDistrictWise';
 
 function PageContents(){
     return(
@@ -9,30 +17,53 @@ function PageContents(){
 				<div className="ui container">
 					<Menu />
 				</div>
-				<div className="ui text container">
-					{/* World Map */}
+				<div className="ui container" style={{marginTop: '25px'}}>
+					<WorldMap />
+				</div>
+			</div>
+			{/* <div className="ui vertical stripe segment">
+				<div className="ui middle aligned stackable grid container">
+					
+					
+				</div>
+			</div> */}
+			<div className="ui vertical stripe quote segment">
+				<div className="ui equal width stackable internally celled grid">
+					<div className="center aligned row">
+						<div className="column">
+						<GeneralStats />
+						</div>
+						<div className="column">
+						<CountriesSearch />
+						</div>
+					</div>
 				</div>
 			</div>
 			<div className="ui vertical stripe segment">
-				<div className="ui middle aligned stackable grid container">
-					{/* Block1 */}
+				<div className="ui container">
+					<MapIndia />
 				</div>
 			</div>
 			<div className="ui vertical stripe quote segment">
 				<div className="ui equal width stackable internally celled grid">
 					<div className="center aligned row">
 						<div className="column">
-						{/* BC1 */}
+						<GeneralStatsIndia />
 						</div>
 						<div className="column">
-						{/* BC2 */}
+						<IndiaSearch />
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className="ui vertical stripe segment">
-				<div className="ui text container">
-					{/* BB123*/}
+				<div className="ui">
+					<CasesTimeSeries />
+				</div>
+			</div>
+			<div className="ui vertical stripe segment">
+				<div className="ui">
+					<StateDistrictWise />
 				</div>
 			</div>
 			<Footer />

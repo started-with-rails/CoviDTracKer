@@ -6,13 +6,7 @@ function Menu() {
             <a className="toc item">
             <i className="sidebar icon"></i>
             </a>
-            <a className="active item">Home</a>
-            <a className="item">Work</a>
-            <a className="item">Company</a>
-            <a className="item">Careers</a>
-            <div className="right item">
-             
-            </div>
+            <a className="active item">CoviD-19 TracKer</a>
         </div>
     )
 }

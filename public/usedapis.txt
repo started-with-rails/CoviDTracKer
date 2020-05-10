@@ -1,0 +1,17 @@
+https://thevirustracker.com/timeline/map-data.json
+https://thevirustracker.com/free-api?countryTimeline=IN
+https://thevirustracker.com/free-api?global=stats
+
+
+https://corona-virus-stats.herokuapp.com/api/v1/cases/general-stats
+https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search
+
+
+http://covid19-india-adhikansh.herokuapp.com/states
+http://covid19-india-adhikansh.herokuapp.com/state/Andhra Pradesh
+
+https://api.covid19india.org/state_district_wise.json
+https://api.covid19india.org/data.json
+
+
+https://api.covid19api.com/summary
