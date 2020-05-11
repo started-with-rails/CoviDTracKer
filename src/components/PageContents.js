@@ -17,7 +17,7 @@ function PageContents(){
 				<div className="ui container">
 					<Menu />
 				</div>
-				<div className="ui container" style={{marginTop: '25px'}}>
+				<div className="ui container" style={{marginTop: '100px'}}>
 					<WorldMap />
 				</div>
 			</div>
@@ -40,7 +40,7 @@ function PageContents(){
 				</div>
 			</div>
 			<div className="ui vertical stripe segment">
-				<div className="ui container">
+				<div className="ui middle container">
 					<MapIndia />
 				</div>
 			</div>

@@ -10,7 +10,8 @@ require('highcharts/modules/map')(Highcharts);
 
 class WorldMap extends React.Component {
     state = {
-        mapOptions: {}
+        mapOptions: {},
+        show: false
     }
     async componentDidMount() {
         const response = await covid19api.get('/summary');
@@ -22,12 +23,12 @@ class WorldMap extends React.Component {
         const mapOptions = {
             chart: {
                 backgroundColor: null,
-                width: 1000,
-                height: 650
+                // width: 1000,
+                // height: 650
             },
             title: {
-                text: 'World Wise Covid-19 Cases',
-                color: '#fff'
+                text: 'Country Wise Covid-19 Cases',
+                style: { "color": "#FFF"}
             },
             mapNavigation: {
             enabled: true
@@ -35,30 +36,27 @@ class WorldMap extends React.Component {
             colorAxis: {
                 min: 0,
                 dataClasses: [{
-                    to: 50000
+                    to: 50000,
+                    color: '#ffd503'
                 }, {
                     from: 50000,
-                    to: 100000
+                    to: 100000,
+                    color: '#ffa703'
                 }, {
                     from: 100000,
-                    to: 500000
-                }, {
-                    from: 500000,
-                    to: 1000000
+                    to: 1000000,
+                    color: '#eb8934'
                 }, {
                     from: 1000000,
-                    to: 5000000
-                }, {
-                    from: 10000000,
-                    to: 50000000
-                }, {
-                    from: 50000000
+                    to: 10000000,
+                    color: '#eb7134',
                 }]
             },
             legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'bottom'
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+                itemStyle:{"color": "#FFF"}
             },
         
             series: [
@@ -67,6 +65,7 @@ class WorldMap extends React.Component {
                 mapData: mapDataWorld,
                 joinBy: 'hc-key',
                 name: 'CoviD -19',
+                nullColor: '#ffd503',
                 states: {
                     hover: {
                         color: '#BADA55'
@@ -79,9 +78,15 @@ class WorldMap extends React.Component {
             }
             ]
         };
-        this.setState({mapOptions: mapOptions});
+        if(response){
+            this.setState({mapOptions: mapOptions,show: true});
+        }
     };
    render(){
+       
+    if(!this.state.show){
+        return <div>Loading Map....</div>
+    }
     return(
         <HighchartsReact
         options={this.state.mapOptions}

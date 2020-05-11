@@ -25,9 +25,15 @@ class IndiaSearch extends React.Component {
                 active_cases.push(parseFloat((states[keyName]['active'])))
             }
         })
-        this.setState({
-            mapOptions: {
-            colors: ['#2f7ed8', '#ff3300', '#8bbc21', '#f5ad42'],    
+        var series = [
+            {name: 'Total Cases', data: total_cases},
+            {name: 'Total Active Cases', data: active_cases},
+            {name: 'Total Recovred Cases', data: total_recovered},
+            {name: 'Total Deaths', data: total_deaths}
+
+        ]
+        var mapOptions = {
+            colors: ['#2f7ed8', '#8bbc21', '#f5ad42','#ff3300'],    
             chart: {
                 type: 'column'
             },
@@ -47,7 +53,7 @@ class IndiaSearch extends React.Component {
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -58,17 +64,17 @@ class IndiaSearch extends React.Component {
                     borderWidth: 0
                 }
             },
-            series: [
-                {name: 'Total Cases', data: total_cases},
-                {name: 'Total Deaths', data: total_deaths},
-                {name: 'Total Recovred Cases', data: total_recovered},
-                {name: 'Total Active Cases', data: active_cases},
-            ]
+            series: series
+        };
+        if(states){
+            this.setState({mapOptions: mapOptions,show: true})
         }
-        })
     };
    
    render(){
+    if(!this.state.show){
+        return <div>Loading....</div>
+    }   
     return(
         <HighchartsReact
         options={this.state.mapOptions}

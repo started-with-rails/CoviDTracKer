@@ -7,7 +7,7 @@ import covid19indiadays from '../apis/covid19indiadays';
 class CasesTimeSeries extends React.Component {
     state = {
         mapOptions: {},
-        data: [],
+        show: false
     };
     async componentDidMount() {
         const response = await covid19indiadays.get('data.json');
@@ -23,72 +23,64 @@ class CasesTimeSeries extends React.Component {
             totaldeceased.push(parseInt(cases_time_series[keyName]['totaldeceased']))
             totalrecovered.push(parseInt(cases_time_series[keyName]['totalrecovered']))
         })
-            const mapOptions = {
-                chart: {
-                    backgroundColor: null,
-                    height: 500,
-                },
-    
-                colors: ['#2f7ed8', '#ff3300', '#8bbc21'],
+        var series = [{
+            name: 'Active Cases',
+            data: totalconfirmed
+        }, {
+            name: 'Deaths',
+            data: totaldeceased
+        },{
+            name: 'Recovered Cases',
+            data: totalrecovered
+        }];
+
+        const mapOptions = {
+            chart: {
+                backgroundColor: null,
+                height: 500,
+            },
+
+            colors: ['#2f7ed8', '#ff3300', '#8bbc21'],
+            title: {
+                text: 'India Covid-19 Cases by Day 1'
+            },
+        
+            yAxis: {
                 title: {
-                    text: 'India Covid-19 Cases by Day 1'
-                },
-            
-                yAxis: {
-                    title: {
-                        text: 'Cases'
-                    }
-                },
-            
-                xAxis: {
-                    categories: categories
-                },
-            
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-            
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-            
-                series: [{
-                    name: 'Active Cases',
-                    data: totalconfirmed
-                }, {
-                    name: 'Deaths',
-                    data: totaldeceased
-                },, {
-                    name: 'Recovered Cases',
-                    data: totalrecovered
-                }],
-            
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
+                    text: 'Cases'
                 }
-            }
-        this.setState({mapOptions: mapOptions});
+            },
+        
+            xAxis: {
+                categories: categories
+            },
+        
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+            },
+        
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+        
+            series: series
+        }
+        if(cases_time_series){
+            this.setState({mapOptions: mapOptions, show: true});
+        }
     }
    
    render(){
+    if(!this.state.show){
+        return <div>Loading....</div>
+    }     
     return(
         <HighchartsReact
         options={this.state.mapOptions}

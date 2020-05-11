@@ -7,7 +7,7 @@ import covid19indiadays from '../apis/covid19indiadays';
 class StateDistrictWise extends React.Component {
     state = {
         mapOptions: {},
-        data: [],
+        show: false,
     };
     async componentDidMount() {
         const response = await covid19indiadays.get('state_district_wise.json');
@@ -24,8 +24,15 @@ class StateDistrictWise extends React.Component {
             total_recovered.push(parseFloat((state_district_wise[keyName]['recovered'])))
             active_cases.push(parseFloat((state_district_wise[keyName]['active']))) 
         })
+        var series = [
+            {name: 'Total Cases', data: total_cases},
+            {name: 'Total Active Cases', data: active_cases},
+            {name: 'Total Recovred Cases', data: total_recovered},
+            {name: 'Total Deaths', data: total_deaths},
+
+        ]
         const mapOptions =  { 
-            colors: ['#2f7ed8', '#ff3300', '#8bbc21', '#f5ad42'],    
+            colors: ['#2f7ed8', '#8bbc21', '#f5ad42','#ff3300'],    
                 chart: {
                     type: 'column'
                 },
@@ -60,17 +67,15 @@ class StateDistrictWise extends React.Component {
                         borderWidth: 0
                     }
                 },
-                series: [
-                    {name: 'Total Cases', data: total_cases},
-                    {name: 'Total Deaths', data: total_deaths},
-                    {name: 'Total Recovred Cases', data: total_recovered},
-                    {name: 'Total Active Cases', data: active_cases},
-                ]
+                series: series
             } 
-            this.setState({mapOptions: mapOptions})
+            this.setState({mapOptions: mapOptions, show: true})
     };
    
    render(){
+    if(!this.state.show){
+        return <div>Loading Map....</div>
+    }
     return(
         <HighchartsReact
         options={this.state.mapOptions}
