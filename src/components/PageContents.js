@@ -7,7 +7,7 @@ import GeneralStats from './GeneralStatsWorld';
 import CountriesSearch from './CountriesSearch';
 import GeneralStatsIndia from './GeneralStatsIndia';
 import IndiaSearch from './IndiaSearch';
-import CasesTimeSeries from './CasesTimeSeries';
+import CasesTimeSeries from './CasesTimeSeriesNew';
 import StateDistrictWise from './StateDistrictWise';
 
 function PageContents(){
@@ -57,7 +57,7 @@ function PageContents(){
 				</div>
 			</div>
 			<div className="ui vertical stripe segment">
-				<div className="ui">
+				<div className="ui middle container">
 					<CasesTimeSeries />
 				</div>
 			</div>
