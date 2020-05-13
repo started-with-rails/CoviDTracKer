@@ -3,6 +3,8 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import mapDataWorld from '../maps/mapDataWorld';
 import covid19api from '../apis/covid19api';
+import coronavirusstats from '../apis/coronavirusstats';
+
 
 // Load Highcharts modules
 require('highcharts/modules/map')(Highcharts);
@@ -11,12 +13,25 @@ require('highcharts/modules/map')(Highcharts);
 class WorldMap extends React.Component {
     state = {
         mapOptions: {},
-        show: false
+        show: false,
+        TotalConfirmed: 0,
+        TotalDeaths: 0,
+        TotalRecovered: 0,
+        CurrentlyInfected: 0
+
     }
     async componentDidMount() {
+
+        const general_stats = await coronavirusstats.get('general-stats');
+        const TotalConfirmed = general_stats.data.data.total_cases.split(',').join('')
+        const CurrentlyInfected = general_stats.data.data.currently_infected.split(',').join('')
+        const TotalDeaths = general_stats.data.data.death_cases.split(',').join('')
+        const TotalRecovered = general_stats.data.data.recovery_cases.split(',').join('')
+
         const response = await covid19api.get('/summary');
         const coutries = response.data.Countries;
         var data = [];
+       
         Object.keys(coutries).map(function(keyName, keyIndex) {
           data.push({"hc-key": coutries[keyName]['CountryCode'].toLowerCase(), value: coutries[keyName]['TotalConfirmed']})
         })
@@ -79,7 +94,7 @@ class WorldMap extends React.Component {
             ]
         };
         if(response){
-            this.setState({mapOptions: mapOptions,show: true});
+            this.setState({mapOptions: mapOptions,show: true,TotalConfirmed: TotalConfirmed, TotalDeaths: TotalDeaths, TotalRecovered: TotalRecovered, CurrentlyInfected: CurrentlyInfected});
         }
     };
    render(){
@@ -88,11 +103,46 @@ class WorldMap extends React.Component {
         return <div>Loading Map....</div>
     }
     return(
+        <div>
+            <div className="ui inverted segment">
+                <div className="ui inverted statistic">
+                    <div className="value">
+                    {this.state.TotalConfirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Confirmed
+                    </div>
+                </div>
+                <div className="ui orange inverted statistic">
+                    <div className="value">
+                    {this.state.CurrentlyInfected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Currently Infected
+                    </div>
+                </div>
+                <div className="ui green inverted statistic">
+                    <div className="value">
+                    {this.state.TotalRecovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Recovered
+                    </div>
+                </div>
+                <div className="ui red inverted statistic">
+                    <div className="value">
+                    {this.state.TotalDeaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Deaths
+                    </div>
+                </div>
+        </div>
         <HighchartsReact
         options={this.state.mapOptions}
         constructorType={'mapChart'}
-        highcharts={Highcharts}
-      />
+        highcharts={Highcharts}  />
+        </div>
     )
    }
 }

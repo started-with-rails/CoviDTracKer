@@ -46,12 +46,12 @@ class CasesTimeSeries extends React.Component {
     };
     async componentDidMount() {
         const response = await covid19indiadays.get('data.json');
-        const cases_time_series = response.data.cases_time_series;
+        const cases_time_series = response.data.cases_time_series.reverse().slice(0, 30).reverse();
         var totalconfirmed = [];
         var totaldeceased = [];
         var totalrecovered = [];
         var categories = [];
-
+        console.log(cases_time_series);
         Object.keys(cases_time_series).map(function(keyName, keyIndex) {
             categories.push(cases_time_series[keyName]['date'])
             totalconfirmed.push(parseInt(cases_time_series[keyName]['totalconfirmed']))
@@ -76,7 +76,7 @@ class CasesTimeSeries extends React.Component {
 
             colors: ['#2f7ed8'],
             title: {
-                text: 'India Covid-19 Cases by Day 1'
+                text: 'India Covid-19 Cases Report Last 30 Days'
             },
         
             yAxis: {

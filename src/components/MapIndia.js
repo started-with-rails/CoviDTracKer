@@ -11,9 +11,22 @@ require('highcharts/modules/map')(Highcharts);
 class MapIndia extends React.Component {
     state = {
         mapOptions: {},
-        show: false
+        show: false,
+        total: 0,
+        confirmed: 0,
+        cured: 0,
+        death: 0
     }
     async componentDidMount() {
+
+        const stats_response = await covid19indiadays.get('data.json');
+        const stats = stats_response.data.statewise[0];
+        var total = stats['confirmed'];
+        var confirmed = stats['active'];
+        var cured = stats['recovered'];
+        var death = stats['deaths'];
+
+
         const response = await covid19indiadays.get('data.json');
         const states = response.data.statewise;
         var data = [];
@@ -93,7 +106,7 @@ class MapIndia extends React.Component {
             }
         };
         if(states){
-             this.setState({mapOptions: mapOptions,show:true});
+             this.setState({mapOptions: mapOptions,show:true,total: total,confirmed:confirmed,cured:cured,death:death});
         }
         
     };
@@ -102,11 +115,47 @@ class MapIndia extends React.Component {
         return <div>Loading....</div>
     }   
     return(
-        <HighchartsReact
+        <dvi>
+            <div className="ui segment" style={{textAlign:"center"}}>
+                <div className="ui blue statistic">
+                    <div className="value">
+                    {this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Confirmed
+                    </div>
+                </div>
+                <div className="ui orange  statistic">
+                    <div className="value">
+                    {this.state.confirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Currently Infected
+                    </div>
+                </div>
+                <div className="ui green  statistic">
+                    <div className="value">
+                    {this.state.cured.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Recovered
+                    </div>
+                </div>
+                <div className="ui red  statistic">
+                    <div className="value">
+                    {this.state.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                    <div className="label">
+                    Total Deaths
+                    </div>
+                </div>
+            </div>
+            <HighchartsReact
         options={this.state.mapOptions}
         constructorType={'mapChart'}
-        highcharts={Highcharts}
-      />
+        highcharts={Highcharts}/>
+        </dvi>
+        
     )
    }
 }

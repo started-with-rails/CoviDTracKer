@@ -17,16 +17,11 @@ function PageContents(){
 				<div className="ui container">
 					<Menu />
 				</div>
-				<div className="ui container" style={{marginTop: '100px'}}>
+				<div className="ui container">
 					<WorldMap />
 				</div>
 			</div>
-			{/* <div className="ui vertical stripe segment">
-				<div className="ui middle aligned stackable grid container">
-					
-					
-				</div>
-			</div> */}
+		
 			<div className="ui vertical stripe quote segment">
 				<div className="ui equal width stackable internally celled grid">
 					<div className="center aligned row">
