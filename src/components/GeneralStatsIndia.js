@@ -26,7 +26,7 @@ class GeneralStatsIndia extends React.Component {
             ]
         }]
         var mapOptions = { 
-            colors: ['#2f7ed8', '#ff3300', '#8bbc21'],
+            colors: ['#f5ad42', '#ff3300','#8bbc21'], 
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,

@@ -74,7 +74,7 @@ class CasesTimeSeries extends React.Component {
         const mapOptions1 = {
             
 
-            colors: ['#2f7ed8'],
+            colors: ['#f5ad42'],
             title: {
                 text: 'India Covid-19 Cases Report Last 30 Days'
             },

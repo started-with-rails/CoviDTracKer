@@ -49,22 +49,27 @@ class MapIndia extends React.Component {
             },
 
             colorAxis: {
-                min: 0,
+                min: 5000,
                 dataClasses: [{
-                    to: 1000,
-                    color: '#ffd503'
-                }, {
-                    from: 1000,
-                    to: 5000,
-                    color: '#ffa703'
-                }, {
-                    from: 5000,
                     to: 10000,
-                    color: '#eb8934'
+                    color: '#ffd503'
                 }, {
                     from: 10000,
                     to: 50000,
+                    color: '#ffa703'
+                }, {
+                    from: 50000,
+                    to: 100000,
+                    color: '#eb8934'
+                }, {
+                    from: 100000,
+                    to: 500000,
                     color: '#eb7134',
+                },
+                , {
+                    from: 500000,
+                    to: 10000000,
+                    color: '#db2828',
                 }]
             },
 

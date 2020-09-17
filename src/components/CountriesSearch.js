@@ -33,7 +33,7 @@ class CountriesSearch extends React.Component {
             {name: 'Total Deaths', data: total_deaths},
         ]
         var mapOptions = {
-            colors: ['#2f7ed8', '#8bbc21', '#f5ad42','#ff3300'],    
+            colors: ['#2f7ed8','#f5ad42','#8bbc21', '#ff3300'],    
             chart: {
                 type: 'column'
             },

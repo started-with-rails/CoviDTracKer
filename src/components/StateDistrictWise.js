@@ -32,7 +32,7 @@ class StateDistrictWise extends React.Component {
 
         ]
         const mapOptions =  { 
-            colors: ['#2f7ed8', '#8bbc21', '#f5ad42','#ff3300'],    
+            colors: ['#2f7ed8','#f5ad42','#8bbc21', '#ff3300'],   
                 chart: {
                     type: 'column'
                 },

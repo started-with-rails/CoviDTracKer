@@ -31,10 +31,11 @@ class WorldMap extends React.Component {
         const response = await covid19api.get('/summary');
         const coutries = response.data.Countries;
         var data = [];
-       
-        Object.keys(coutries).map(function(keyName, keyIndex) {
-          data.push({"hc-key": coutries[keyName]['CountryCode'].toLowerCase(), value: coutries[keyName]['TotalConfirmed']})
-        })
+        if(coutries) {
+            Object.keys(coutries).map(function(keyName, keyIndex) {
+             data.push({"hc-key": coutries[keyName]['CountryCode'].toLowerCase(), value: coutries[keyName]['TotalConfirmed']})
+            })
+        }
         const mapOptions = {
             chart: {
                 backgroundColor: null,
